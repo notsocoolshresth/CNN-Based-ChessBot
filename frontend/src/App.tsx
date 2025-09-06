@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess, Square } from 'chess.js';
 
@@ -107,7 +107,7 @@ const App: React.FC = () => {
     updateGameStatus();
   };
 
-  const updateGameStatus = () => {
+  const updateGameStatus = useCallback(() => {
     const turnColor = game.current.turn() === 'w' ? 'White' : 'Black';
     const isHumanTurn = (humanColor === 'white' && game.current.turn() === 'w') || (humanColor === 'black' && game.current.turn() === 'b');
 
@@ -123,7 +123,7 @@ const App: React.FC = () => {
     } else {
       setStatus(`${isHumanTurn ? 'Your turn' : "AI's turn"} (${turnColor}).`);
     }
-  };
+  }, [humanColor]);
 
   const resetGame = () => {
     game.current.reset();
@@ -142,12 +142,11 @@ const App: React.FC = () => {
     }
   };
 
-useEffect(() => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  if (humanColor) {
-    updateGameStatus();
-  }
-}, [humanColor]);
+  useEffect(() => {
+    if (humanColor) {
+      updateGameStatus();
+    }
+  }, [humanColor, updateGameStatus]);
 
   // Full move history in SAN
   const moveHistory = game.current.history({ verbose: true });
