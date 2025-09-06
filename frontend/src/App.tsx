@@ -142,11 +142,12 @@ const App: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (humanColor) {
-      updateGameStatus();
-    }
-  }, [humanColor]);
+useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  if (humanColor) {
+    updateGameStatus();
+  }
+}, [humanColor]);
 
   // Full move history in SAN
   const moveHistory = game.current.history({ verbose: true });
