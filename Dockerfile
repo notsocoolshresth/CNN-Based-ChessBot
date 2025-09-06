@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose port (optional for Cloud Run, but good for local)
-EXPOSE 5000
+EXPOSE 8080
 
 # Set environment variables for Flask
 ENV PYTHONUNBUFFERED=1 \
