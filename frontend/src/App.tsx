@@ -70,7 +70,7 @@ const App: React.FC = () => {
     try {
       const fen = game.current.fen();
       const aiPlayer = humanColor === 'white' ? 'black' : 'white';
-      const response = await fetch('http://localhost:5000/move', {
+      const response = await fetch('https://chess-server-d0d7d0gvh7fpehf3.centralindia-01.azurewebsites.net/move', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fen, player: aiPlayer, mode: 'cnn_minimax' }),
