@@ -1,41 +1,25 @@
-# -------------------------------
-# Base image
-# -------------------------------
-FROM python:3.11-slim
+# Use Python base image
+FROM python:3.10-slim
 
-# -------------------------------
-# Set working directory
-# -------------------------------
+# Set workdir
 WORKDIR /app
 
-# -------------------------------
-# Install system dependencies
-# -------------------------------
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libgl1 \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
-
-# -------------------------------
-# Copy requirements and install
-# -------------------------------
+# Copy requirements first for caching
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip
+
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# -------------------------------
-# Copy application code
-# -------------------------------
-COPY backend backend
-COPY gui gui
+# Copy the entire backend code
+COPY . .
 
-# -------------------------------
-# Expose Flask port
-# -------------------------------
+# Expose port (optional for Cloud Run, but good for local)
 EXPOSE 5000
 
-# -------------------------------
-# Run Flask server
-# -------------------------------
-CMD ["python", "backend/flask_server.py"]
+# Set environment variables for Flask
+ENV PYTHONUNBUFFERED=1 \
+    FLASK_APP=flask_server.py \
+    FLASK_ENV=production
+
+# Start Flask
+CMD ["python", "flask_server.py"]
