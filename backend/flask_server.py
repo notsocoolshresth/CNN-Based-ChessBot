@@ -1,15 +1,17 @@
-import sys
 import os
-import time  # Added for accurate timing
-sys.path.append(os.path.abspath(r"C:\Users\Shresth\vscode2\pyfiles\chess-ai\gui"))  # Adjust the path as needed
-
-from cnn_minimax_chess import CNNMinimaxEngine
+import time
+import sys
 import chess
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-# Create Flask app
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+
+from gui.cnn_minimax_chess import CNNMinimaxEngine
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 

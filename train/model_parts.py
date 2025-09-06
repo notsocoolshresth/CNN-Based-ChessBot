@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow as tf # type: ignore
 
 def conv(x, filters, skip_connection=None):
 	"""

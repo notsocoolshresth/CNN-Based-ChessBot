@@ -1,17 +1,24 @@
 import numpy as np
-import chess
+import chess # type: ignore
 import time
 import argparse
 from tensorflow.keras.models import load_model # type: ignore
-import pygame
+import pygame # type: ignore
 import os
 # Set up paths relative to the script location
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-GUI_DIR = SCRIPT_DIR  # Since the script is already in the gui directory
+GUI_DIR = SCRIPT_DIR
+
+# Default location of models inside gui/models/
+DEFAULT_MODELS_DIR = os.path.join(GUI_DIR, "models")
+
+# Allow overriding via environment variable (for Flask/Docker)
+MODELS_BASE = os.environ.get("CHESS_MODELS_DIR", DEFAULT_MODELS_DIR)
+
 MODEL_DIRS = {
-    "700": os.path.join(GUI_DIR, "models", "700-elo"),
-    "1100": os.path.join(GUI_DIR, "models", "1100-elo"),
-    "1200": os.path.join(GUI_DIR, "models", "1200-elo")
+    "700": os.path.join(MODELS_BASE, "700-elo"),
+    "1100": os.path.join(MODELS_BASE, "1100-elo"),
+    "1200": os.path.join(MODELS_BASE, "1200-elo"),
 }
 
 # Piece values for heuristic evaluation (in centipawns)

@@ -1,8 +1,8 @@
 from cnn_minimax_chess import CNNMinimaxEngine
 import os
 import argparse
-import pygame
-import chess
+import pygame # type: ignore
+import chess    # type: ignore
 # Set up paths relative to the script location
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 GUI_DIR = SCRIPT_DIR  # Since the script is already in the gui directory
