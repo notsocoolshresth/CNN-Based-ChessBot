@@ -86,12 +86,12 @@ def make_move():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Add a simple health check endpoint
-@app.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({"status": "ok"})
+
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({"message": "Chess AI API is running"})
 
 if __name__ == '__main__':
     print("OK")
-    port = int(os.environ.get("PORT", 8080))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
