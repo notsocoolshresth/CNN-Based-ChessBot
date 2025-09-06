@@ -1,0 +1,14 @@
+# Ignore training scripts
+train/
+data_cleaning/
+benchmark/
+front/
+
+# Ignore Python cache files
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore images if not needed for backend
+gui/images/
